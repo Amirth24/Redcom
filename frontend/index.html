@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark red"/>
+  <link rel="stylesheet" href="./node_modules/@picocss/pico/css/pico.fluid.classless.red.min.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+  <title>Redcom Movies</title>
+</head>
+<body>
+  <header>
+      <h1><span style="color:#ff8888">Red</span>Com</h1>
+      <small>Movie Recommedation System</small>
+  </header>
+  <main class="container-fluid" x-data="{server_uri: 'http://127.0.0.1:8000'}">
+    <article style="width:70%; margin: auto;" x-data="{
+      'id': '',
+      async recom(){
+        console.log(this.id);
+        this.movies = await fetch(`${server_uri}/get_redcom/${this.id}`).then((res)=>res.json());
+        this.movies = this.movies.top_movies.map(data => ({...data[1], score:data[0]}));
+        console.log(this.movies[0])
+      },
+      'movies': []}"
+      >
+      <header>Enter User ID</header>
+      <main>
+        <input type="text" x-model="server_uri" placeholder="Server Url"/>
+        <input type="text" x-model="id" placeholder="User Id"/>
+        <button @click="await recom()" >Get Recommedation</button>
+      <main/>
+      <footer>
+        <ul style="margin-top:15px;">
+          <template x-for="movie in movies">
+            <details>
+              <summary x-text="movie.title"></summary>
+              <h6>Score: <b x-text="movie.score"></b></h6>
+              <h6>Genres</h6>
+              <ul>
+                <template x-for="g in movie.genres" />
+                  <li x-text="g"></li>
+                </template>
+              <ul/>
+            </details>
+          </template>
+        </ul>
+      </footer>
+    </article>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "redcom_frontend",
+  "version": "1.0.0",
+  "description": "A Minimalistic frontend for redcom Recommender system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Recommender",
+    "system",
+    "alpine"
+  ],
+  "author": "Amirth24",
+  "license": "ISC",
+  "dependencies": {
+    "@picocss/pico": "^2.0.0-rc4",
+    "alpinejs": "^3.13.5"
+  }
+}
